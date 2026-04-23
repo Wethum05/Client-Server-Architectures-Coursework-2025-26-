@@ -12,28 +12,29 @@ import javax.ws.rs.core.Application;
 import java.util.HashSet;
 import java.util.Set;
 
-@ApplicationPath("/api/v1")
+@ApplicationPath("/")
 public class SmartCampusApplication extends Application {
-    
+
     @Override
     public Set<Class<?>> getClasses() {
         Set<Class<?>> classes = new HashSet<>();
-        
+
         // Register Resources
         classes.add(DiscoveryResource.class);
         classes.add(SensorRoomResource.class);
         classes.add(SensorResource.class);
-        // Note: SensorReadingResource is dynamically instantiated via a Sub-Resource Locator inside SensorResource
-        
+        // Note: SensorReadingResource is dynamically instantiated via a Sub-Resource
+        // Locator inside SensorResource
+
         // Register Exception Mappers
         classes.add(RoomNotEmptyExceptionMapper.class);
         classes.add(LinkedResourceNotFoundExceptionMapper.class);
         classes.add(SensorUnavailableExceptionMapper.class);
         classes.add(GlobalExceptionMapper.class);
-        
+
         // Register Filters
         classes.add(LoggingFilter.class);
-        
+
         return classes;
     }
 }
