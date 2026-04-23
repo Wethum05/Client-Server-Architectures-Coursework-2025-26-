@@ -69,6 +69,6 @@ public class SensorRoomResource {
         }
         
         dataStore.getRooms().remove(roomId);
-        return Response.noContent().build();
+        return Response.ok("room deleted sucessfully").build();
     }
 }
