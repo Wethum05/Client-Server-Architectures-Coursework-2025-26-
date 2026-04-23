@@ -5,9 +5,14 @@ import com.smartcampus.exceptions.SensorUnavailableException;
 import com.smartcampus.models.Sensor;
 import com.smartcampus.models.SensorReading;
 
+import com.smartcampus.exceptions.ErrorMessage;
+
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -20,6 +25,9 @@ public class SensorReadingResource {
     private final String sensorId;
     private final DataStore dataStore = DataStore.getInstance();
 
+    @Context
+    private UriInfo uriInfo;
+
     public SensorReadingResource(String sensorId) {
         this.sensorId = sensorId;
     }
@@ -28,7 +36,8 @@ public class SensorReadingResource {
     public Response getReadings() {
         Sensor sensor = dataStore.getSensors().get(sensorId);
         if (sensor == null) {
-            return Response.status(Response.Status.NOT_FOUND).entity("Sensor not found").build();
+            return Response.status(Response.Status.NOT_FOUND)
+                    .entity(new ErrorMessage(404, "Sensor not found: " + sensorId)).build();
         }
 
         List<SensorReading> readings = dataStore.getReadings().getOrDefault(sensorId, new ArrayList<>());
@@ -39,7 +48,8 @@ public class SensorReadingResource {
     public Response appendReading(SensorReading reading) {
         Sensor sensor = dataStore.getSensors().get(sensorId);
         if (sensor == null) {
-            return Response.status(Response.Status.NOT_FOUND).entity("Sensor not found").build();
+            return Response.status(Response.Status.NOT_FOUND)
+                    .entity(new ErrorMessage(404, "Sensor not found: " + sensorId)).build();
         }
         
         // State Constraint: A sensor marked as MAINTENANCE cannot accept readings
@@ -61,6 +71,7 @@ public class SensorReadingResource {
         // Save the reading into the DataStore
         dataStore.addReading(sensorId, reading);
 
-        return Response.status(Response.Status.CREATED).entity(reading).build();
+        URI location = uriInfo.getAbsolutePathBuilder().path(reading.getId()).build();
+        return Response.status(Response.Status.CREATED).entity(reading).location(location).build();
     }
 }
