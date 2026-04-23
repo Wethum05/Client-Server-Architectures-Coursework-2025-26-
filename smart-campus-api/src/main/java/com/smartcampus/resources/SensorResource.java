@@ -68,7 +68,7 @@ public class SensorResource {
     // Sub-Resource Locator
     @Path("/{sensorId}/readings")
     public SensorReadingResource getSensorReadingResource(@PathParam("sensorId") String sensorId) {
-        // We pass the contextual parent sensor ID to the sub-resource
-        return new SensorReadingResource(sensorId);
+        // We pass the contextual parent sensor ID and UriInfo to the sub-resource
+        return new SensorReadingResource(sensorId, uriInfo);
     }
 }

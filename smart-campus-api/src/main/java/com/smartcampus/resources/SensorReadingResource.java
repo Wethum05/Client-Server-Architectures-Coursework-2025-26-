@@ -28,8 +28,9 @@ public class SensorReadingResource {
     @Context
     private UriInfo uriInfo;
 
-    public SensorReadingResource(String sensorId) {
+    public SensorReadingResource(String sensorId, UriInfo uriInfo) {
         this.sensorId = sensorId;
+        this.uriInfo = uriInfo;
     }
 
     @GET
