@@ -17,7 +17,7 @@ All endpoints incorporate targeted programmatic structured exceptions ensuring s
 
 ## Instructions to Build and Launch
 
-1. **Verify Prerequisites:** Ensure Java JDK 11 (or higher) and Maven (`mvn`) are installed correctly within your system environment.
+1. **Verify Prerequisites:** Ensure Java JDK 23 and Maven (`mvn`) are installed correctly within your system environment.
 2. **Navigate to the root directory:** containing the `pom.xml`.
     ```bash
     cd smart-campus-api
