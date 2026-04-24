@@ -15,6 +15,8 @@ Endpoints design implemented:
 
 All endpoints incorporate targeted programmatic structured exceptions ensuring strict server reliability and cybersecurity data leaking mitigation by intercepting runtime anomalies.
 
+## Demo Video Link
+url: https://drive.google.com/file/d/1vU1aVwM1Zcq_28kHaz-QQUerR0mQG-8Y/view?usp=sharing
 ## Instructions to Build and Launch
 
 1. **Verify Prerequisites:** Ensure Java JDK 23 and Maven (`mvn`) are installed correctly within your system environment.
